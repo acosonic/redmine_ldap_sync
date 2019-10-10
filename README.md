@@ -1,5 +1,11 @@
+--- forked from https://github.com/tainewoo/redmine_ldap_sync
+Try to adapt this plugin to Redmine Ldap Passwd fork (https://github.com/cryoz/redmine_ldap_passwd)
+and make it FreeIPA compatible
+
+=================
+
 Redmine LDAP Sync
---- forked from https://github.com/thorin/redmine_ldap_sync, which is unmaintained. 
+--- forked from https://github.com/thorin/redmine_ldap_sync, which is unmaintained.
 This maintained version is tested working fine with Redmine4.x/Ruby2.6.x/Rails5.2.x
 Issues and PRs are welcome.
 Redmine site: http://www.redmine.org/plugins/redmine_ldap_sync
@@ -237,8 +243,8 @@ information.
 Unmaintained
 ------------
 
-I created this plugin to solve a need we had on my previous job. 
-Things changed and now I no longer have the time or the need necessary to maintain it. 
+I created this plugin to solve a need we had on my previous job.
+Things changed and now I no longer have the time or the need necessary to maintain it.
 Sorry for this. Please consider forking or using one of the existing forks.
 In a best scenario, an official fork might already exist.
 
