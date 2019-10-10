@@ -27,8 +27,8 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
     @auth_source = auth_sources(:auth_sources_001)
     @ldap_setting = LdapSetting.find_by_auth_source_ldap_id(@auth_source.id)
 
-    AuthSourceLdap.activate_users = false
-    AuthSourceLdap.running_rake = false
+    AuthSourceLdapPasswd.activate_users = false
+    AuthSourceLdapPasswd.running_rake = false
   end
 
   test "#sync_groups should sync custom fields and create groups" do
@@ -278,8 +278,8 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
     @ldap_setting.fixed_group = nil
     assert @ldap_setting.save, @ldap_setting.errors.full_messages.join(', ')
 
-    AuthSourceLdap.running_rake!
-    AuthSourceLdap.trace_level = :change
+    AuthSourceLdapPasswd.running_rake!
+    AuthSourceLdapPasswd.trace_level = :change
 
     old_stdout, $stdout = $stdout, StringIO.new
 
@@ -334,7 +334,7 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
     user1.lock!
     assert user1.locked?
 
-    AuthSourceLdap.activate_users!
+    AuthSourceLdapPasswd.activate_users!
     @auth_source.sync_users
     assert user1.locked?
   end
@@ -345,8 +345,8 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
 
     old_stdout, $stdout = $stdout, StringIO.new
 
-    AuthSourceLdap.running_rake!
-    AuthSourceLdap.trace_level = :debug
+    AuthSourceLdapPasswd.running_rake!
+    AuthSourceLdapPasswd.trace_level = :debug
     @auth_source.sync_users
 
     actual, $stdout = $stdout.string, old_stdout
@@ -361,8 +361,8 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
 
     old_stdout, $stdout = $stdout, StringIO.new
 
-    AuthSourceLdap.running_rake!
-    AuthSourceLdap.trace_level = :silent
+    AuthSourceLdapPasswd.running_rake!
+    AuthSourceLdapPasswd.trace_level = :silent
     @auth_source.sync_users
 
     actual, $stdout = $stdout.string, old_stdout
@@ -376,8 +376,8 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
 
     old_stdout, $stdout = $stdout, StringIO.new
 
-    AuthSourceLdap.running_rake!
-    AuthSourceLdap.trace_level = :change
+    AuthSourceLdapPasswd.running_rake!
+    AuthSourceLdapPasswd.trace_level = :change
     @auth_source.sync_users
 
     actual, $stdout = $stdout.string, old_stdout
@@ -404,7 +404,7 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
 
     old_stdout, $stdout = $stdout, StringIO.new
 
-    AuthSourceLdap.running_rake!
+    AuthSourceLdapPasswd.running_rake!
     @ldap_setting.dyngroups = 'enabled'
     assert @ldap_setting.save, @ldap_setting.errors.full_messages.join(', ')
     @auth_source.sync_users
@@ -621,7 +621,7 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
     @user = users(:loadgeek)
     @user.lock!
 
-    AuthSourceLdap.activate_users!
+    AuthSourceLdapPasswd.activate_users!
     @auth_source.sync_user(@user)
     assert @user.active?
   end
@@ -706,8 +706,8 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
   end
 
   test "#try_login should show an user's name when its mail address has already been used" do
-    AuthSourceLdap.running_rake!
-    AuthSourceLdap.trace_level = :error
+    AuthSourceLdapPasswd.running_rake!
+    AuthSourceLdapPasswd.trace_level = :error
 
     old_stdout, $stdout = $stdout, StringIO.new
 

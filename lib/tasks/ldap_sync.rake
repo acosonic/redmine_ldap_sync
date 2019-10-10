@@ -23,8 +23,8 @@ namespace :redmine do
       task :sync_users => :environment do |t, args|
         init_task
 
-        AuthSourceLdap.activate_users! unless ENV['ACTIVATE_USERS'].nil?
-        AuthSourceLdap.all.each do |as|
+        AuthSourceLdapPasswd.activate_users! unless ENV['ACTIVATE_USERS'].nil?
+        AuthSourceLdapPasswd.all.each do |as|
           trace "Synchronizing '#{as.name}' users..."
           as.sync_users
         end
@@ -34,7 +34,7 @@ namespace :redmine do
       task :sync_groups => :environment do |t, args|
         init_task
 
-        AuthSourceLdap.all.each do |as|
+        AuthSourceLdapPasswd.all.each do |as|
           trace "Synchronizing '#{as.name}' groups..."
           as.sync_groups
         end
@@ -44,7 +44,7 @@ namespace :redmine do
       task :sync_all => [:sync_groups, :sync_users]
 
       def init_task
-        AuthSourceLdap.running_rake!
+        AuthSourceLdapPasswd.running_rake!
 
         if defined?(ActiveRecord::Base)
           ActiveRecord::Base.logger = Logger.new(STDOUT)
@@ -52,7 +52,7 @@ namespace :redmine do
         end
 
         if %w(debug error change silent).include? ENV['LOG_LEVEL']
-          AuthSourceLdap.trace_level = ENV['LOG_LEVEL'].to_sym
+          AuthSourceLdapPasswd.trace_level = ENV['LOG_LEVEL'].to_sym
         end
 
         unless ENV['DRY_RUN'].nil?
@@ -65,7 +65,7 @@ namespace :redmine do
     end
 
     def trace(msg)
-      return if [:silent, :error, :change].include?(AuthSourceLdap.trace_level)
+      return if [:silent, :error, :change].include?(AuthSourceLdapPasswd.trace_level)
 
       puts msg
     end

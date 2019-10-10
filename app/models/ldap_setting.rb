@@ -66,7 +66,7 @@ class LdapSetting
   safe_attributes *(LDAP_ATTRIBUTES + CLASS_NAMES + FLAGS + COMBOS + OTHERS)
   define_attribute_methods LDAP_ATTRIBUTES + CLASS_NAMES + FLAGS + COMBOS + OTHERS
   ::User::STANDARD_FIELDS = %w( firstname lastname mail )
-	
+
   [:login, *User::STANDARD_FIELDS].each {|f| module_eval("def #{f}; auth_source_ldap.attr_#{f}; end") }
 
   def id
@@ -205,7 +205,7 @@ class LdapSetting
 
   def auth_source_ldap_id=(id)
     @auth_source_ldap_id = id
-    source = AuthSourceLdap.find_by_id(id)
+    source = AuthSourceLdapPasswd.find_by_id(id)
     self.auth_source_ldap = source unless source.nil?
   end
 
@@ -261,14 +261,14 @@ class LdapSetting
 
   # Find the ldap setting for a given ldap auth source
   def self.find_by_auth_source_ldap_id(id)
-    return unless source = AuthSourceLdap.find_by_id(id)
+    return unless source = AuthSourceLdapPasswd.find_by_id(id)
 
     LdapSetting.new(source)
   end
 
   # Find all the available ldap settings
   def self.all(options = {})
-    AuthSourceLdap.where(options).
+    AuthSourceLdapPasswd.where(options).
       map {|source| find_by_auth_source_ldap_id(source.id) }.
       compact
   end

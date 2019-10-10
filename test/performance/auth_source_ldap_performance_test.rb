@@ -28,8 +28,8 @@ class AuthSourceLdapPerformanceTest < ActionDispatch::PerformanceTest
     @auth_source = auth_sources(:auth_sources_001)
     @ldap_setting = LdapSetting.find_by_auth_source_ldap_id(@auth_source.id)
 
-    AuthSourceLdap.activate_users = false
-    AuthSourceLdap.running_rake = false
+    AuthSourceLdapPasswd.activate_users = false
+    AuthSourceLdapPasswd.running_rake = false
   end
 
   def test_sync_groups

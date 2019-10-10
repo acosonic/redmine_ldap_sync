@@ -4,7 +4,7 @@ class RemoveAttrPrefixSettings < ActiveRecord::Migration[4.2]
     all_settings = Setting.plugin_redmine_ldap_sync
     return unless all_settings
 
-    AuthSourceLdap.all.each do |as|
+    AuthSourceLdapPasswd.all.each do |as|
       settings = all_settings[as.name]
 
       say_with_time "Updating settings for '#{as.name}'" do
@@ -24,7 +24,7 @@ class RemoveAttrPrefixSettings < ActiveRecord::Migration[4.2]
     all_settings = Setting.plugin_redmine_ldap_sync
     return unless all_settings
 
-    AuthSourceLdap.all.each do |as|
+    AuthSourceLdapPasswd.all.each do |as|
       settings = all_settings[as.name]
 
       say_with_time "Updating settings for '#{as.name}'" do
