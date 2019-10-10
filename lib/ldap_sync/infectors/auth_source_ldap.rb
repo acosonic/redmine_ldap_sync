@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Redmine LDAP Sync.  If not, see <http://www.gnu.org/licenses/>.
-module LdapSync::Infectors::AuthSourceLdapPasswd
+module LdapSync::Infectors::AuthSourceLdap
 
   module InstanceMethods
     include LdapSync::EntityManager
